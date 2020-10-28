@@ -1,0 +1,70 @@
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+//structure of node in a linked list
+struct Node
+{
+	int data;
+	struct  Node* next;	
+	Node(int data)
+	{
+		this->data=data;
+		next=NULL;
+	}
+};
+struct Node* head=NULL;
+
+void push(int data)
+{
+	Node* temp=new Node(data);
+	temp->next=head;
+	head=temp;
+}
+void print(Node* head)
+{
+	struct Node* temp=head;
+	while(temp!=NULL)
+	{
+		cout<<temp->data<<" ";
+		temp=temp->next;
+	}
+}
+
+bool isPalindrome(Node* head)
+{
+    Node* p=head;
+    bool ispalin=true;
+    stack<int> s;
+    while(p!=NULL)
+    {
+        s.push(p->data);
+        p=p->next;
+    }
+    while(head!=NULL)
+    {
+        int i=s.top();
+        s.pop();
+        if(head->data==i)
+        ispalin=true;
+        else
+        ispalin=false;
+        head=head->next;
+    }
+    return ispalin;
+}
+
+int main(){
+	
+	push(1);
+	push(2);
+	push(3);
+	push(2);
+	push(1);
+	print(head);
+	if(isPalindrome(head))
+	cout<<"\n List is palindrome";
+	else
+	cout<<"\n List is not palindrome";
+
+
+}
