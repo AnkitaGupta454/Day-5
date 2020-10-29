@@ -1,0 +1,42 @@
+//Evaluation of prefix operation for single opearand
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+bool isOperand(int x)
+{
+	if(x=='^'||x=='/'||x=='*'||x=='-'||x=='+')
+		return false;
+	return true;
+}
+void evalpre(string s){
+	 std::stack<int> st; 
+	int l=s.length();
+	int x1,x2,r;
+	for(int i=l-1;i>=0;i--)
+ {
+ 	if(isOperand(s[i]))
+ 		st.push(s[i]-'0');
+ 	else{
+          x2=st.top();
+          st.pop();
+          x1=st.top();
+          st.pop();
+          switch(s[i])
+          {
+          	case'+':{r=x2+x1;st.push(r);break;}
+          	case'-':{r=x2-x1;st.push(r);break;}
+          	case'*':{r=x2*x1;st.push(r);break;}
+          	case'/':{if(x2!=0)
+          		        r=x2/x1;
+          		        st.push(r);break;}
+          }
+ 	}
+ }
+ cout<<st.top();
+}
+int main(){
+	string s="-+2*34/42";
+	evalpre(s);
+	return 0;
+}
